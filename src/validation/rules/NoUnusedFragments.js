@@ -25,28 +25,7 @@ export function NoUnusedFragments(context: ASTValidationContext): ASTVisitor {
       return false;
     },
     Document: {
-      leave() {
-        const fragmentNameUsed = Object.create(null);
-        for (const operation of operationDefs) {
-          for (const fragment of context.getRecursivelyReferencedFragments(
-            operation,
-          )) {
-            fragmentNameUsed[fragment.name.value] = true;
-          }
-        }
-
-        for (const fragmentDef of fragmentDefs) {
-          const fragName = fragmentDef.name.value;
-          if (fragmentNameUsed[fragName] !== true) {
-            context.reportError(
-              new GraphQLError(
-                `Fragment "${fragName}" is never used.`,
-                fragmentDef,
-              ),
-            );
-          }
-        }
-      },
+      leave() {},
     },
   };
 }
